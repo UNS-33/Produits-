@@ -1,0 +1,118 @@
+# Modèle de Données Visuel (Diagramme Entité-Relation)
+
+Voici une représentation visuelle raffinée de votre modèle de données sous forme de diagramme :
+
+```
++----------------------+       +---------------------------+       +---------------------+
+|   DIM_STATUT_CYCLEVIE|       |      DIM_PRODUIT         |       | DIM_CLASSIFICATION |
+|----------------------|       |---------------------------|       |---------------------|
+| PK: ID_Statut        |<------| PK: ID_Produit           |       | PK: ID_Classification
+|    Code_Statut       |       |    Code_Produit          |------>| FK: ID_Classification_Parent
+|    Libelle_Statut    |       |    Nom_Produit           |       |    No_Niveau        |
+|    ...               |       |    FK_Statut_CycleVie    |       |    Nom_Niveau       |
++----------------------+       |    ...                   |       |    ...              |
+                               +---------------------------+       +---------------------+
+                                      ^         ^                        ^
+                                      |         |                        |
++----------------------+       +------+---------+------+       +---------+---------+
+| DIM_CARACTERISTIQUES |       | DIM_HIERARCHIE        |       | FAIT_PRODUIT_CLASS |
+|----------------------|       |-----------------------|       |---------------------|
+| PK: ID_Caracteristique|      | PK: ID_Hierarchie     |       | PK: (FK_ID_Produit, |
+| FK: ID_Produit       |      | FK: ID_Produit_Parent |       |       FK_ID_Classification,
+|    Type_Caracteristique|     | FK: ID_Produit_Enfant |       |       Date_Debut_Activite)
+|    Valeur            |      |    Type_Relation      |       |    Niveau_Classification
+|    ...               |      |    ...                |       |    Est_Feuille       |
++----------------------+      +-----------------------+       |    ...              |
+                                                              +---------------------+
+```
+
+## Légende du Diagramme
+
+- **Rectangles** : Tables du modèle
+- **PK** : Clé primaire (identifiant unique)
+- **FK** : Clé étrangère (relation entre tables)
+- **Flèches** : Relations entre tables (cardinalités non spécifiées)
+- **...** : Autres champs non représentés pour simplifier
+
+## Version Mermaid (pour génération automatique)
+
+Si vous utilisez un outil comme Mermaid, voici le code pour générer le diagramme :
+
+```mermaid
+erDiagram
+    DIM_STATUT_CYCLEVIE ||--o{ DIM_PRODUIT : "1-N"
+    DIM_PRODUIT ||--o{ DIM_CARACTERISTIQUES : "1-N"
+    DIM_PRODUIT ||--o{ DIM_HIERARCHIE : "Parent"
+    DIM_PRODUIT ||--o{ DIM_HIERARCHIE : "Enfant"
+    DIM_CLASSIFICATION ||--o{ DIM_CLASSIFICATION : "Auto-référence"
+    DIM_PRODUIT }|--|| FAIT_PRODUIT_CLASS : "1-N"
+    DIM_CLASSIFICATION }|--|| FAIT_PRODUIT_CLASS : "1-N"
+    
+    DIM_STATUT_CYCLEVIE {
+        int ID_Statut PK
+        varchar Code_Statut
+        varchar Libelle_Statut
+        varchar Description
+        bit Est_Actif
+        datetime Date_Creation
+    }
+    
+    DIM_PRODUIT {
+        int ID_Produit PK
+        varchar Code_Produit
+        varchar Nom_Produit
+        varchar Description_Produit
+        int FK_Statut_CycleVie FK
+        varchar Version_Produit
+        decimal Poids_Produit
+        datetime Date_Creation
+    }
+    
+    DIM_CARACTERISTIQUES {
+        int ID_Caracteristique PK
+        int FK_ID_Produit FK
+        varchar Type_Caracteristique
+        varchar Valeur
+        varchar Unite_Mesure
+    }
+    
+    DIM_HIERARCHIE {
+        int ID_Hierarchie PK
+        int FK_ID_Produit_Parent FK
+        int FK_ID_Produit_Enfant FK
+        varchar Type_Relation
+        decimal Poids_Relation
+    }
+    
+    DIM_CLASSIFICATION {
+        int ID_Classification PK
+        int FK_ID_Classification_Parent FK
+        int No_Niveau
+        varchar Nom_Niveau
+    }
+    
+    FAIT_PRODUIT_CLASS {
+        int FK_ID_Produit PK,FK
+        int FK_ID_Classification PK,FK
+        datetime Date_Debut_Activite PK
+        int Niveau_Classification
+        bit Est_Feuille
+    }
+```
+
+## Explications Visuelles
+
+1. **Centralité de Dim_Produit** : La table Produit est au centre, connectée à toutes les autres tables principales.
+
+2. **Auto-référence** : 
+   - Dim_Classification peut référencer elle-même pour la hiérarchie
+   - Dim_Hierarchie crée des relations entre produits via deux FK vers Dim_Produit
+
+3. **Table de jointure** : Fait_Produit_Classification est une table d'association entre Produit et Classification avec une clé primaire composite.
+
+4. **Relations** : 
+   - 1-N entre Statut et Produit
+   - 1-N entre Produit et Caractéristiques
+   - N-N entre Produit et Classification via la table de fait
+
+Ce diagramme montre clairement les relations entre les différentes entités de votre modèle de données raffiné.
