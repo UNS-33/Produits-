@@ -1,0 +1,72 @@
+Voici une explication complète de la dimension Dim_Produits, incluant ses attributs, ses relations avec les autres tables, et les cardinalités.
+
+
+---
+
+📘 1. Attributs de Dim_Produits
+
+Attribut	Description
+
+ID_Produit	Identifiant technique unique du produit (clé primaire)
+Code_Produit	Code fonctionnel ou métier du produit (utilisé dans les systèmes sources)
+Nom_Produit	Libellé du produit (ex : Visa Or, CELI Mobile)
+Type_Produit	Type général (ex : Carte de crédit, Compte épargne, Assurance)
+Statut_CycleVie	Statut actuel (Actif, Inactif, Retiré, etc.)
+Version_Produit	Version fonctionnelle ou commerciale du produit
+Date_Creation	Date de création dans le système source
+Date_MiseAJour	Dernière date de mise à jour des métadonnées
+Systeme_Source	Nom du système d’origine (SAP, CRM, Front, etc.)
+Canal_Distribution	Canal d’accès : Succursale, En ligne, Mobile, etc.
+Mode_Offre	Individuel, Bundle, Mixte (s’il peut être vendu seul ou groupé)
+ID_Produit_Parent (optionnel)	Pour les relations récursives simples si activées (sinon via table hiérarchique)
+
+
+
+---
+
+🔗 2. Relations de Dim_Produits
+
+Table liée	Type de relation	Clé de jointure	Cardinalité
+
+Dim_Caracteristiques_produit	1 produit → N caractéristiques	ID_Produit (FK)	1 → N
+Dim_Hierarchie	1 produit → N relations hiérarchiques (parent/enfant)	ID_Produit (FK comme parent ou enfant)	1 → N ou N → N
+Dim_Produit_Classifiés	1 produit → N rattachements à la classification	ID_Produit (FK)	1 → N
+Fait_Détention (si présente)	1 produit → N détentions bancaires	ID_Produit (FK)	1 → N
+
+
+
+---
+
+🧠 3. Pourquoi cette dimension est essentielle ?
+
+Elle constitue la base centrale de ton catalogue de produits.
+
+Permet la normalisation des informations provenant de plusieurs systèmes.
+
+Sert de point d’ancrage pour toutes les analyses par produit : performance, rattachement, bundle, canal, etc.
+
+Elle est dynamique : les produits évoluent, changent de version, ou disparaissent — d’où la nécessité d’attributs de temporalité (Date_Creation, Statut, etc.).
+
+
+
+---
+
+💡 Recommandations
+
+Amélioration	Pourquoi ?
+
+Ajouter un champ Segment_Métier	Pour rattacher directement à un domaine d’affaires
+Ajouter un champ Code_Reglementaire	Pour les rapports AMF, OSFI, etc.
+Ajouter un Code_Offre (si applicable)	Pour regrouper plusieurs produits sous une même offre commerciale
+
+
+
+---
+
+Souhaites-tu maintenant :
+
+un dictionnaire Excel pour cette dimension ?
+
+une version du modèle draw.io centrée sur Dim_Produits ?
+
+
