@@ -1,0 +1,41 @@
+La dimension Dim_Produit_Classifies sert à lier un produit à sa hiérarchie de classification. Elle agit comme une table de pont (bridge) entre :
+
+Dim_Produits (qui contient les produits eux-mêmes),
+
+Dim_Hierarchie (qui définit les niveaux hiérarchiques parent/enfant),
+
+et éventuellement Dim_Classification (qui décrit les classes et niveaux).
+
+
+Pourquoi elle est utile ?
+
+1. Gérer plusieurs niveaux de classification pour un même produit (ex. Produit → Catégorie → Segment → Ligne de business).
+
+
+2. Permettre des regroupements analytiques par hiérarchie sans dupliquer l'information dans Dim_Produits.
+
+
+3. Conserver l’historique des rattachements produit-hiérarchie grâce aux dates de début/fin d’activité.
+
+
+
+Exemple concret
+
+Produit principal : Carte de crédit Visa
+
+Hiérarchie :
+
+Niveau 0 : Produits Bancaires
+
+Niveau 1 : Moyens de Paiement
+
+Niveau 2 : Carte de Crédit
+
+
+Produit auxiliaire : Assurance voyage (lié comme enfant dans la hiérarchie)
+
+
+👉 Dans ce cas, Dim_Produit_Classifies stockera pour chaque produit son rattachement à un niveau hiérarchique précis, ce qui facilite la navigation dans l'arborescence des produits.
+
+💡 Conclusion : Elle est essentielle pour supporter la hiérarchie multi-niveau et les analyses qui nécessitent de remonter ou descendre dans la classification des produits.
+
