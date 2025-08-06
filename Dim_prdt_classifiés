@@ -1,0 +1,80 @@
+Voici une explication claire et détaillée en français des attributs de la dimension Dim_Produit_Classifiés :
+
+
+---
+
+🔹 Produit
+
+Type : Clé étrangère (FK)
+
+Description : Identifiant unique du produit, généralement issu de la table Dim_Produits (ex : Code_Produit).
+
+Utilité : Permet de rattacher chaque ligne de classification à un produit spécifique.
+
+
+
+---
+
+🔹 Hiérarchie
+
+Type : Clé étrangère (FK)
+
+Description : Fait référence à un code ou identifiant de la structure hiérarchique issue de Dim_Hierarchie.
+
+Utilité : Indique dans quelle hiérarchie le produit est classé (ex : hiérarchie commerciale, réglementaire, marketing...).
+
+
+
+---
+
+🔹 Feuille
+
+Type : Booléen ou texte (Oui / Non)
+
+Description : Indique si le produit est une feuille de l’arbre (c’est-à-dire un produit final, sans sous-produit).
+
+Utilité : Sert à identifier les produits terminaux (ceux vendus ou affichés au client) par opposition aux produits parents ou intermédiaires.
+
+
+
+---
+
+🔹 Date_debut_activité
+
+Type : Date
+
+Description : Date à partir de laquelle le lien de classification devient effectif pour ce produit.
+
+Utilité : Permet de gérer les changements dans le temps (gestion d’historique) — essentiel pour des analyses temporelles.
+
+
+
+---
+
+🔹 Date_fin_activité
+
+Type : Date (nullable)
+
+Description : Date à laquelle ce rattachement n’est plus valide.
+
+Utilité : Permet d’archiver les anciennes classifications et de faire des analyses basées sur la période active.
+
+
+
+---
+
+✅ En résumé
+
+Dim_Produit_Classifiés est une table de rattachement entre les produits et leurs classifications hiérarchiques, qui permet :
+
+d’analyser les produits par niveaux hiérarchiques,
+
+de gérer des classifications multiples (ex : produit réglementaire vs marketing),
+
+de suivre les changements dans le temps,
+
+de filtrer les produits finaux ou intermédiaires.
+
+
+Souhaites-tu que je t’envoie un dictionnaire de données Excel avec ces définitions ?
+
