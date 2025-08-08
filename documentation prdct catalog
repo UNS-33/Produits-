@@ -1,0 +1,78 @@
+Documentation Technique : Modèle Hiérarchique de Gestion des Produits Bancaires
+1. Structure Hiérarchique
+Le modèle organisé en 4 niveaux permet de catégoriser précisément l'offre bancaire :
+
+Niveau 0 (Racine)
+Représente le point d'entrée global de la hiérarchie. Exemple : "HIERARCHIE_BANCAIRE". Ce niveau sert d'ancrage à toute la structure.
+
+Niveau 1 (Classification)
+Correspond aux grandes familles de produits. Exemples : "COMPTES" pour tous les types de comptes, "CREDITS" pour les produits de prêt, ou "CARTES" pour les moyens de paiement. Ce niveau reflète la segmentation métier principale.
+
+Niveau 2 (Produits)
+Contient les produits individuels commercialisés. Exemples : "COMPTE_EPARGNE" pour un compte épargne standard, "CARTE_GOLD" pour une carte haut de gamme. Chaque entrée représente une offre commerciale distincte.
+
+Niveau 3 (Sous-produits)
+Détaille les variantes et options. Exemples : "LIVRET_A" comme type spécifique de compte épargne, "ASSURANCE_VOYAGE" comme option ajoutée à une carte. Ce niveau permet de gérer les déclinaisons fines des produits.
+
+2. Tables et Relations
+La table principale DIM_HIERARCHIE structure cette organisation avec les champs suivants :
+
+ID_Noeud : Identifiant technique unique pour chaque élément
+
+Code_Noeud : Code métier court servant de référence (ex: "CE-123")
+
+Nom_Noeud : Libellé complet pour l'affichage (ex: "Compte Épargne Plus")
+
+Niveau_Hierarchie : Position dans la structure (0 à 3)
+
+Code_Parent : Lien vers l'élément parent dans la même table
+
+Est_Feuille : Indicateur pour les éléments terminaux (niveau 3)
+
+La table DIM_PRODUIT complète le modèle pour les éléments terminaux avec :
+
+Code_Produit : Correspond au Code_Noeud des éléments feuilles
+
+Type_Produit : Distingue les produits "BASE" des "VARIANTE"
+
+Est_Bundle : Indique si le produit regroupe d'autres sous-produits
+
+3. Fonctionnement des Relations
+Le modèle repose sur deux mécanismes relationnels principaux :
+
+Auto-référencement dans DIM_HIERARCHIE : Chaque noeud pointe vers son parent direct, permettant de reconstituer les chemins complets. Par exemple, un sous-produit (niveau 3) pointe vers son produit parent (niveau 2), qui lui-même pointe vers sa classification (niveau 1).
+
+Lien vers les produits terminaux : Les éléments de niveau 3 ont leur correspondance dans DIM_PRODUIT, permettant d'ajouter des spécificités techniques et commerciales.
+
+4. Cas d'Usage Concrets
+Pour un compte épargne standard :
+La hiérarchie serait :
+HIERARCHIE_BANCAIRE (niveau 0) → COMPTES (niveau 1) → EPARGNE (niveau 2) → CE-123 (niveau 3).
+Le produit CE-123 serait enregistré dans DIM_PRODUIT avec Type_Produit = "BASE" et Est_Bundle = false.
+
+Pour un pack premium :
+La structure serait :
+HIERARCHIE_BANCAIRE → CARTES → PACK-PRO (niveau 2, avec Est_Bundle = true) → CARTE-GOLD et ASSUR-VOYAGE (niveau 3).
+Les sous-produits auraient Type_Produit = "VARIANTE".
+
+5. Règles de Gestion
+Plusieurs contraintes assurent la cohérence des données :
+
+Tout élément de niveau 1 à 3 doit avoir un parent défini
+
+Les éléments de niveau 3 doivent obligatoirement être marqués comme feuilles (Est_Feuille = true)
+
+Un bundle est toujours de niveau 2 et possède au moins un sous-produit de niveau 3
+
+Les produits de base peuvent exister aux niveaux 2 ou 3
+
+6. Exploitation des Données
+Le modèle permet notamment :
+
+La reconstruction complète des arborescences produits via des requêtes récursives
+
+L'identification rapide de tous les bundles et leurs composants
+
+L'extraction des produits par famille métier (comptes, crédits...)
+
+La gestion fine des options et variantes commerciales
