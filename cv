@@ -1,0 +1,86 @@
+Analyzed existing transactional and reference systems to identify key business 
+dimensions. 
+● Created conceptual and logical models in Visio; developed context views in 
+BiZZdesign. 
+● Designed ER diagrams in Draw.io, capturing cardinalities and inter-domain 
+relationships. 
+● Built fact tables and analytical views (star schema) within a Medallion architecture 
+(bronze silver gold) on Azure Synapse. 
+● Orchestrated Spark notebooks using Airflow with Git version control, dynamic 
+parameters, and error handling. 
+● Optimized Spark jobs (broadcast joins, partitioning) for Delta Lake performance. 
+● Enforced governance and security using Azure Key Vault, RBAC, and lineage via 
+Microsoft Purview
+
+National Bank of Canada – Montreal 
+Senior Data Solutions Architect  |  July 2022 to April 2025 
+● Design data models for financial domains (clients, transactions, cards, investments) 
+based on frameworks like BIAN or ISO 20022. 
+● Define data governance strategies covering quality, security, lineage, and cataloging 
+using tools such as Collibra. 
+● Implement data architectures (Data Lakehouse, EDW, Data Mesh) that meet 
+analytical and regulatory needs. 
+● Oversee the development of data pipelines for both batch and real-time, to feed BI, 
+AI, and regulatory systems. 
+● Ensure compliance with regulatory requirements (e.g., GDPR, PCI DSS, local 
+banking standards) related to data handling. 
+● Collaborate closely with business stakeholders and Solutions Architects to align data 
+solutions with strategic objectives. 
+● Evaluate and integrate cloud solutions (GCP, AWS) to optimize performance, cost, 
+and security. 
+● Document architecture and data flows to support maintainability and system 
+scalability. 
+S&E Cloud Experts – Montreal 
+Google Cloud Architect / Technical Team Lead  |  January 2020 to June 2022 
+● Designed serverless Big Data architectures for clients including LightSpeed, Novisto, 
+and Canam. 
+● Developed data processing pipelines using Dataflow, DataProc, Pub/Sub, and 
+Composer. 
+● Integrated machine learning models using BigQuery ML and AutoML. 
+● Managed a technical team, supported strategic client accounts, and delivered 
+tailored solutions aligned with business needs. 
+● Built dashboards and reports using Looker and Data Studio. 
+Itergy – Montreal 
+Sr. Database Architect  | October 2018 – December 2019 
+● Led the design and optimization of large-scale Oracle and SQL Server databases for 
+mission-critical services. 
+● Defined performance KPIs, automated maintenance tasks, and implemented 
+proactive alert mechanisms. 
+● Designed robust ETL workflows (SSIS), OLAP cubes (SSAS), and data-driven 
+reports (SSRS). 
+● Standardized high availability configurations using Oracle RAC and Microsoft Always 
+On across multiple environments. 
+● Established disaster recovery procedures by regularly conducting DR drills and 
+refining documentation. 
+CGI – Shawinigan 
+Database Architect  | January 2016 – September 2018 
+● Led cross-functional teams to implement complex data models and architectures 
+(Data Guard, Golden Gate, DAG). 
+● Defined upgrade paths and executed major Oracle and SQL Server version 
+migrations seamlessly. 
+● Designed comprehensive architecture reports to guide executive decision-making. 
+● Standardized best practices through targeted training sessions and development 
+support. 
+● Established security protocols to ensure compliance, data integrity, and system 
+reliability. 
+�
+�
+ Professional Experience – MOROCCO 
+Attijariwafa Bank – Casablanca 
+Sr. Systems and Databases Administrator  | April 2015 to November 2015 
+● Managed market risk and credit risk applications for banking operations. 
+● Administered Unix AIX environments and Oracle Databases, ensuring high 
+availability and performance. 
+● Automated administrative tasks, database monitoring, and backup strategies. 
+● Led the migration of Oracle databases from 10g to 11g, enhancing system 
+capabilities. 
+Capgemini – Casablanca 
+Systems and Databases Administrator   | March 2012 to March 2015 
+● Designed and implemented data security, backup strategies, and database 
+automation for enterprise clients. 
+● Managed Oracle, SQL Server, and MySQL databases across multiple operating 
+systems (Linux, Unix, Windows). 
+● Led database migrations, infrastructure optimization, and performance tuning to 
+improve efficiency. 
+● Provided technical support to developers for optimizing SQL queries and application 
+performance.
