@@ -32,6 +32,64 @@ Attributs : id_cod_classification, num_niveau (niveau hiérarchique), dat_creati
 dim_produit_classification_type (SCD1)
 → Définit les types de classifications (marketing, ventes, etc.).
 
+
+
+Une Slowly Changing Dimension (SCD), c’est une méthode en modélisation de données pour gérer l’évolution dans le temps des attributs d’une dimension. En gros : comment tu gères l’historique quand une valeur change.
+
+🔑 Les 3 principaux types
+
+SCD Type 1 (écrasement)
+
+On écrase l’ancienne valeur par la nouvelle.
+
+Avantage : simple, toujours à jour.
+
+Inconvénient : pas d’historique.
+
+Exemple : correction d’une faute dans le nom du produit → pas besoin d’historiser.
+
+SCD Type 2 (historisation complète)
+
+On garde l’ancienne ligne et on crée une nouvelle ligne avec la nouvelle valeur.
+
+On ajoute date_effective, date_expire, flag_current.
+
+Avantage : on garde tout l’historique.
+
+Inconvénient : plus complexe à gérer.
+
+Exemple : un produit change de catégorie marketing → on veut savoir dans quelle catégorie il était avant et après.
+
+SCD Type 3 (colonne supplémentaire)
+
+On garde seulement la valeur précédente (ex: old_category, new_category).
+
+Avantage : simple, historique limité.
+
+Inconvénient : on ne conserve pas plusieurs changements.
+
+Exemple : utile si on veut juste comparer "avant/après" pour un seul changement.
+
+📌 Application dans ton modèle
+
+dim_produit → SCD1 (pas besoin d’historiser, un produit garde son ID).
+
+dim_produit_cycle_vie → SCD1, mais tu peux utiliser des dates (dat_lancement, dat_retrait) pour comprendre la durée.
+
+bridges (classification, canal, tarif, éligibilité, standards, relations) → SCD2 car ils changent avec le temps et doivent garder l’historique.
+
+dim_tarif → SCD2 (tarification évolue dans le temps).
+
+dim_segment_marche / dim_categorie / dim_risque / dim_personne / dim_canal → SCD1 (référentiels relativement stables, juste corriger ou enrichir).
+
+👉 En résumé :
+
+SCD1 : dimensions stables, corrections → dim_produit, référentiels.
+
+SCD2 : tout ce qui est relation produit–quelque chose avec historique (bridges, tarifs).
+
+SCD3 : cas rare, seulement si tu veux comparer "avant/après" sur un attribut spécifique.
+
 Exemple : Un produit peut être classé différemment pour le marketing (Neo/Pro/Étudiant) que pour la vente.
 
 bridge_produit_classification
